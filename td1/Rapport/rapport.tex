@@ -1,0 +1,113 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage[]{graphicx}
+\usepackage{array}
+\usepackage{amsmath}
+
+\author{Zakaridia - Dalila}
+\title{Rapport TP Coalescence}
+
+\begin{document}
+\maketitle
+Ce projet a été réalisé en utilisant le logiciel octave.
+
+\section{Prise en main des programmes}
+
+\begin{itemize}
+
+\item Tableau récapitulant le vecteur moyenne et matrice de variance-covariance pour les trois classes. \\\\
+	\begin{tabular}{|c|c|c|}
+		\hline
+		classe  & matrice variance - covariance & Vecteur moyenne 
+	\\
+		\hline % Une ligne  
+		1 &
+		  $\begin{pmatrix} 4 \\ 4 \end{pmatrix}$
+		& $\begin{pmatrix} 1 & 0\\ 0 & 1 \end{pmatrix}$ \\	
+		
+		
+				\hline % Une ligne  
+		2 &
+		  $\begin{pmatrix} -4 \\ -4 \end{pmatrix}$
+		& $\begin{pmatrix} 4 & 0\\ 0 & 4 \end{pmatrix}$ \\	
+		
+		
+				\hline % Une ligne  
+		3 &
+		  $\begin{pmatrix} 0 \\ 0 \end{pmatrix}$
+		& $\begin{pmatrix} 1 & 0\\ 0 & 1 \end{pmatrix}$ \\	
+		\hline
+		
+		
+	\end{tabular} \\
+
+\item
+	La fonction $[x$ $m$ $clas] = initialiser()$ permet de générer aléatoirement les données de test et d'initialiser la partition optimale. Elle renvoie également la métrique associée aux données de test. En utilisant la fonction $affiche\_classe(x,clas)$ , nous obtenons la représentation graphique suivante représentant celle de la partition optimale. 
+
+\item
+L'algorithme de coalescence a été codé dans le fichier $coalescence.m$.
+
+\item
+Pour tester l'algorithme, nous procédons comme suite : \\
+	\begin{itemize}
+		\item Initialisation des données : $[x$ $m$ $clas] = initialiser()$
+		\item Exécution de la fonction $[clas2$ $g]$ = $lancerAleatoire(x,k,m)$ : Dans cette fonction, nous choisissons aléatoirement les centres de gravité initiaux puis on exécute l'algorithme de coalescence. $clas2$ contient le résultat de la classification et $g2$ le centre de gravité par classe. 
+	\end{itemize}
+	
+\item
+Après exécution de l'algorithme de coalescence et affichage du résultat, nous observons des erreurs de classifications dues à la dispersion des individus au sein des classes ( notamment la dispersion des individus dans la partition optimale ayant la classe numéro 2 ) . 
+
+\end{itemize}
+
+\section{Influence du point de l’initialisation}
+
+	\begin{itemize}
+		\item Chargement des données : $[x$ $m]$ = $charger("td2\_d1.txt")$ \\
+		\item Visualisation planaire des données : $visualiser(x)$ \\
+		\item La visualisation planaire des individus nous permet de constater que ceux-ci peuvent être regrouper en deux classes. \\
+		En regroupant donc ces individus par application de l'algorithme de coalescence, nous observons que la répartition obtenu ne nous convient pas a chaque fois.\\
+		Le problème se situe lors de l'initialisation des centres de gravité. En effet choisir les deux centres gravités parmi les individus qui se ressemblent le plus, conduit à une partition non satisfaisante.\\
+		\item Pour choisir des centres de gravité permettant d'obtenir une partition satisfaisante, nous choisissons deux individus en fonction de la moyenne (m) et de l'ecart-type (e) de la deuxième mesure. Les deux  valeurs devront respecter les contraintes suivantes :
+		\begin{itemize}
+			\item  La première valeur $\ge e + m$ 
+			\item La seconde valeur $\le m - e$ 
+		\end{itemize}
+	\end{itemize} 
+
+\section{Influence de la métrique}
+
+
+\begin{itemize}
+		\item Chargement des données : $[x$ $m]$ = $charger("td2\_d.txt")$ \\
+		\item Visualisation planaire des données : $visualiser(x)$ \\
+		\item La visualisation planaire des individus nous permet de constater que ceux-ci peuvent être regrouper en deux classes. \\
+             En regroupant donc ces individus par application de l'algorithme de coalescence, nous observons que la répartition obtenu ne nous convient pas a chaque fois.\\
+		Le problème se situe lors de l'initialisation des centres de gravité.Et pour palier a ce probleme nous proposons une solution qui consiste a utilier la meyenne de la premiere et la deuxieme          mesure 
+             pour calculer les deux mesures associers aux deux centre  de gravite G1 et G2  .
+\begin{itemize}
+             \item Calculer la moyene de la premiere mesure Moym1 .
+              \item Calculer la moyene de la deuxieme mesure Moym2.
+          
+\begin{itemize}
+              \item G1 (Moym1 ,  (min(x(2,:)) + moyM2)/2)).
+               \item G2 (Moym2 ,  (max(x(2,:)) + moyM2)/2).
+  \end{itemize}
+
+ \end{itemize}
+         le resultat obtenu est très satisfaisant.
+         \item  avec l'ecart type de la mesure 1 est de 0.1 et que l'ecart type de la mesure 2 et de 2 on appliquant la solution precedente nous obtenant un resultat insatisfaisant ,donc la metrique a bien influencer sur le resulat.
+         La solution proposé est consiste à calculer la metriqe de la façon suivante: 
+         \begin{itemize}
+              \item M(1,1)=1/VAR(x(1,:)).
+               \item M(2,2)=1/VAR(x(2,:)).
+       Le resultat obtenu est tres satisfaisant .
+  \end{itemize}
+		\end{itemize}
+		
+\section{Choix du nombre de classes}
+	L'algorithme de coalescence vise à minimiser la valeur de l'inertie intra-classe. 
+D'après la courbe de représentation de cette valeur en fonction du nombre de classe, nous constatons que celle-ci décroît très peu à partir du nombre de classe K = 4. Nous pouvons donc conclure que le nombre de classe de l'ensemble d’apprentissage est 4. 
+	\includegraphics[width=200px]{../images/courbe.png}
+\end{document}
