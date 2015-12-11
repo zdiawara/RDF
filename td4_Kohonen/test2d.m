@@ -1,7 +1,9 @@
 function test2d()
   
-  x = load("data.mat").xunif;
-
+  x = load('data.mat');
+  
+  x = x.xdisc;
+  
   k = 3 ;
   
   nbiter = 500;
@@ -22,9 +24,10 @@ function test2d()
     clas(i) = (q(1)-1) + k*(q(2)-1)+1 ;
   end
   
+  affiche_classe(x,clas);
+  
   affiche_grille(w);
   
-  affiche_classe(x,clas);
   
 
 end

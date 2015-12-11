@@ -1,5 +1,4 @@
-
-function q = winner(x , w , K)
+function q = winner2d(x , w , K)
   
   diff = [w(1,1,1) - x(1) ; w(1,1,2) - x(2)] ;
         
