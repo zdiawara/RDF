@@ -1,5 +1,4 @@
 function affiche_grille(w)
-clf;
 hold on
 
 for b=1:size(w,1),

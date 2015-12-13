@@ -1,6 +1,6 @@
 function [] = test3d()
 
-  img = imread("FEMME.ppm");
+  img = imread('FEMME.ppm');
   
   x=zeros(3,256*256); 
   
@@ -49,6 +49,6 @@ function [] = test3d()
   
   end
   
-  imwrite(img,"ooo.ppm");
+  imwrite(img,'ooo.ppm');
   
 end
