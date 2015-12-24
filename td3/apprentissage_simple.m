@@ -1,6 +1,6 @@
 function [w] = apprentissage_simple(x,yd)
   
-  w = [0.5;7;3];    % Poids initial
+  w = rand(3,1);    % Poids initial
   
   alpha = 0.1;
   
@@ -19,29 +19,27 @@ function [w] = apprentissage_simple(x,yd)
   
   n = size(x,2);
   
-  x1 = -1:1; 
+  x1 = -1:1; %Pour tracer droite separatrice
      
-  %x2 = (-w(1) - x1*w(2))/w(3);   %Equation de la droite 
-
   while ~convergence
+    
+    evolutionErreur = zeros(3,1);
     
     % Parcours l'ensemble des individus, 
     for i = 1 : n
       
       y(i) = perceptron_simple(x(:,i) , w ,0);  %
       
-      % Mise a jour des poids synaptique si erreur
-      if y(i) ~= yd(i)
+      evolutionErreur = evolutionErreur + ( yd(i) - y(i)  ) * [1 ; x(:,i)] ;
       
-        w = w + alpha * ( yd(i) - y(i)  ) * [1 ; x(:,i)] ;
-          
-      end
-    
     end    
+    
+    % Mise a jour des poids  
+    w = w + alpha*evolutionErreur  ;
     
     droite(cpt,:) = (-w(1) - x1*w(2))/w(3);
     
-    afficher_classe( x , y , droite , x1 , echelle) ;
+    afficher_classe( x , y , droite , x1 , echelle , false) ;
     
     cpt = cpt + 1 ;
     
@@ -53,7 +51,4 @@ function [w] = apprentissage_simple(x,yd)
     
   end
   
-  a = 1 : length(e) ;
-  plot(a , e );
-
 end

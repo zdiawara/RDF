@@ -1,6 +1,6 @@
 function [w] = apprentissage_widrow(x,yd,active)
 
-  w = [0.5;2*rand(1,2)'];
+  w = 3*rand(3,1);
   
   alpha = 0.1;
   
@@ -20,14 +20,10 @@ function [w] = apprentissage_widrow(x,yd,active)
   droite = [];
   
   x1 = -1:1; 
-  
-  cumulErreur = [];
-  
+   
   while ~convergence
     
-    cumulErreur(cpt) = 0 ;
-    
-    evolutionErreur = 0;
+    evolutionErreur = zeros(3,1);
     
     for i = 1 : n
       
@@ -36,19 +32,16 @@ function [w] = apprentissage_widrow(x,yd,active)
       y(i) = decision ( p ) ;
       
       e = yd(i) - p ;
-      
-      cumulErreur(cpt) = cumulErreur(cpt) + e^2;
-      
+        
       evolutionErreur = evolutionErreur + e * derive( p , active ) * [1 ; x(:,i)] ;
                     
     end
 
     w = w + alpha * evolutionErreur;    
-    
-    
+     
     droite(cpt,:) = (-w(1) - x1*w(2))/w(3);
     
-    afficher_classe( x , y , droite , x1 , echelle, true) ;
+    afficher_classe( x , y , droite , x1 , echelle, false) ;
   
     cpt = cpt + 1 ;
     
@@ -59,9 +52,6 @@ function [w] = apprentissage_widrow(x,yd,active)
     end
 
   end
-  
-  a = 1 : length(cumulErreur) ;
-  %plot(a , cumulErreur );
   
 end 
 

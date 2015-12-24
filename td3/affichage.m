@@ -18,6 +18,6 @@ function y = affichage()
 
   x2 = 0.5 - x1;
 
-  plot( x(1,:) , x(2,:) , 'rx' , x1 , x2) 
+  plot( x(1,:) , x(2,:) , '*' , x1 , x2) 
 
 end

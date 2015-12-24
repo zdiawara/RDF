@@ -1,4 +1,4 @@
-function [y] = multieCouche()
+function [y] = multiperceptron_test()
    
   w1_1 = [-0.5 2 -1]';
   

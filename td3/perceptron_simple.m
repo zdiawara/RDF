@@ -1,26 +1,12 @@
 function [y] = perceptron_simple(x , w , active)
 
-  u = emissionInflux(x,w);
+  %u = emissionInflux(x,w);
+  
+  u = dot(w,[1;x]);
 
   y = phi(u,active);
 
 end 
-
-function [u] = emissionInflux(x,w)
-  
-  y = [1;x];
-  
-  n = length(y);
-  
-  u = 0;
-  
-  for i = 1 : n
-    
-    u = u + y(i)*w(i);
-  
-  end
-  
-end  
 
 function [r] = phi(u,active)
 
